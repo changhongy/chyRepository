@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otto.borrow.web.mapper.BookCategoryMapper">
+
+
+    <select id="selectByParam" resultType="com.otto.borrow.web.entity.BorBookCategoryEntity">
+        select *
+        from bor_book_category
+        where 1=1
+        <if test="dicName != null and dicName != ''">
+           and dic_name like CONCAT(#{dicName}, '%')
+        </if>
+        <if test="status != null">
+           and status = #{status}
+        </if>
+    </select>
+    <select id="selectById" resultType="com.otto.borrow.web.entity.BorBookCategoryEntity">
+        select * from bor_book_category where id = #{id}
+    </select>
+</mapper>

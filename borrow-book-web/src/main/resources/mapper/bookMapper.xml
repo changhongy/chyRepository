@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otto.borrow.web.mapper.BookMapper">
+    <update id="updateNum">
+        update bor_book set total_num = total_num - 1 where total_num > 0 and id = #{bookId}
+    </update>
+
+    <select id="selectByList" resultType="com.otto.borrow.web.dto.BookListDto">
+        select id,book_name, head_img_url, author_name, category, category_name,content, total_num, is_cycle, create_at
+        from bor_book
+        where 1=1
+        <if test="book.category != null">
+            and category = #{book.category}
+        </if>
+        <if test="book.bookName != null and book.bookName != ''">
+            and book_name like  CONCAT(#{book.bookName}, '%')
+        </if>
+        <if test="book.isCycle != null">
+            and is_cycle = #{book.isCycle}
+        </if>
+        order by id desc
+    </select>
+    <select id="selectById" resultType="com.otto.borrow.web.entity.BorBookEntity">
+        select * from bor_book where id = #{id}
+    </select>
+</mapper>

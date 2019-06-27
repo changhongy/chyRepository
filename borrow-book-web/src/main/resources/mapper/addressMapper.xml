@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.otto.borrow.web.mapper.AddressMapper">
+    <update id="updateIsDefault">
+        update bor_address set is_default = #{isDefault} where user_id = #{userId} and is_delete = 0
+    </update>
+    <update id="deleteById">
+        update bor_address set is_delete = 1 where id = #{id}
+    </update>
+
+
+    <select id="findAll" resultType="com.otto.borrow.web.entity.AddressEntity">
+        select * from bor_address where user_id = #{userId} and is_delete = 0
+         order by is_default desc
+    </select>
+    <select id="findDefault" resultType="com.otto.borrow.web.entity.AddressEntity">
+        select * from bor_address where user_id = #{userId} and is_default = 1 and is_delete = 0
+    </select>
+</mapper>
